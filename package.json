@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "echo 'Building application...Addition to the code being made'"
+    "build": "echo 'Building application...2nd Addition to the code being made'"
   },
   "repository": {
     "type": "git",
