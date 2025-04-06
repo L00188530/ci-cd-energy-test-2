@@ -1,0 +1,50 @@
+name: Incremental CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  incremental-build:
+    runs-on: self-hosted
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🏗️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🔍 Check if source code or tests changed
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            code:
+              - 'src/**'
+              - '__tests__/**'
+              - 'package.json'
+              - 'jest.config.js'
+
+      - name: 📦 Install dependencies
+        if: steps.changes.outputs.code == 'true'
+        run: npm install
+
+      - name: 🔐 Fix Jest permission issue
+        if: steps.changes.outputs.code == 'true'
+        run: chmod +x ./node_modules/.bin/jest
+
+      - name: 🧪 Run tests (only if needed)
+        if: steps.changes.outputs.code == 'true'
+        run: npm test
+
+      - name: 🛠️ Build application (only if needed)
+        if: steps.changes.outputs.code == 'true'
+        run: npm run build || echo "No build step defined"
+
+      - name: ✅ Skip build and test (if nothing changed)
+        if: steps.changes.outputs.code != 'true'
+        run: echo "No relevant changes — skipping tests and build"

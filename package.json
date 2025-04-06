@@ -1,0 +1,28 @@
+{
+  "name": "ci-cd-prj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "echo 'Building application...'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L00188530/ci-cd-energy-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/L00188530/ci-cd-energy-test/issues"
+  },
+  "homepage": "https://github.com/L00188530/ci-cd-energy-test#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
